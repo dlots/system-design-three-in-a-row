@@ -2,16 +2,23 @@
 
 namespace Utilities {
 
-template <typename CommandType, typename CommandData>
+template <typename Executor>
 class Command {
 public:
+    using CommandType = typename Executor::CommandType;
+    using CommandData = typename Executor::CommandData;
+
     explicit Command(CommandType type_, CommandData data_) : type(type_), data(data_) {}
-    CommandType getType();
-    CommandData getData();
+    
+    void execute(Executor& executor);
 
 private:
     CommandType type;
     CommandData data;
+};
+
+class CommandList {
+
 };
 
 }

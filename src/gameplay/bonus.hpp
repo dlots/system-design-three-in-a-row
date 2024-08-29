@@ -1,10 +1,13 @@
 #pragma once
 
-#include "board_visitor.hpp"
+#include "board.hpp"
+#include "command_provider.hpp"
 
 namespace Gameplay {
 
-class Bonus : public BoardVisitor {
+class Board;
+
+class Bonus : public Utilities::CommandProvider<Board> {
 public:
     virtual ~Bonus() = default;
 };

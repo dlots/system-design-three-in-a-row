@@ -1,16 +1,21 @@
 #pragma once
 
+#include "stats_and_records/score.hpp"
+#include "stats_and_records/score_visitor.hpp"
+
+#include "tile.hpp"
+
 namespace Gameplay {
 
-class Gem {
+class Gem : public Tile {
 public:
     virtual ~Gem() = default;
 
 // Queries
-    virtual char getSymbol() = 0;
-    virtual Score getScore() = 0;
 
 // Commands
+    virtual void acceptScoreVisitor(StatsAndRecords::ScoreVisitor visitor) = 0;
+    virtual void acceptCombinationVisitor() = 0;
 
 // Command status queries
 

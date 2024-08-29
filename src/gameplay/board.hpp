@@ -2,7 +2,10 @@
 
 #include <vector>
 
-#include "utilities/base_status_enum.hpp"
+#include "base_hierarchy.hpp"
+#include "base_status_enum.hpp"
+#include "command.hpp"
+#include "executor.hpp"
 
 #include "bonus.hpp"
 #include "combination.hpp"
@@ -17,18 +20,14 @@ DECLARE_STATUS(BoardCommandStatus,
     EmptyTile       // One of the tiles is empty
 );
 
-enum class CombinationAction {
-    SWAP,
-    REMOVE
-};
-
 using CoordinatesList = std::vector<Coordinates>;
 
-using BoardCommand = Utilities::Command<CombinationAction, CoordinatesList>;
+using Any = Utilities::Any;
 
 // Board interface for all users
 class Board {
 public:
+
     virtual ~Board() = default;
 
 // Queries
@@ -58,13 +57,22 @@ public:
     virtual BoardCommandStatus getSwapTilesStatus() = 0;
 };
 
-class BoardImpl : public Board {
+class BoardImpl : public Board, public Utilities::Executor<BoardImpl> {
 public:
-    virtual ~BoardImpl() = 0;
+    virtual ~BoardImpl() = default;
+
+    enum class CommandType {
+        SWAP,
+        REMOVE
+    };
+
+    using CommandData = std::vector<Utilities::Command<Board>>;
 
     virtual void applyBonus(Bonus& bonus) override {
         bonus.visit(*this);
     };
 };
 
-}
+static_assert(Utilities::ImplementsCommand<BoardImpl>);
+
+};

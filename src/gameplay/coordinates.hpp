@@ -1,13 +1,14 @@
 #pragma once
 
-#include "utilities/strong_typedef.hpp"
-
-using Utilities::StrongTypedef;
-
 namespace Gameplay {
 
-using Row = StrongTypedef<size_t>;
-using Column = StrongTypedef<size_t>;
+class Row {
+    
+};
+
+class Column {
+
+};
 
 class Coordinates {
 public:

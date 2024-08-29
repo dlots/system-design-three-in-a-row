@@ -6,12 +6,16 @@ class Tile {
 public:
     virtual ~Tile() = default;
 
-// Queries 
+// Queries
+    virtual char getSymbol() = 0;
 
 // Commands
 
 // Command status queries
 
+};
+
+class EmptyTile : public Tile {
 
 };
 
