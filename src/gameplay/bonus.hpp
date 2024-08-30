@@ -1,15 +1,55 @@
 #pragma once
 
-#include "board.hpp"
-#include "command_provider.hpp"
+#include "board_manipulator.hpp"
 
 namespace Gameplay {
 
-class Board;
+class BonusImpl : public BoardManipulatorImpl {
+    virtual ~BonusImpl() = default;
 
-class Bonus : public Utilities::CommandProvider<Board> {
+    explicit BonusImpl(ManipulableBoardPointer board) :
+        BoardManipulatorImpl(board) {
+    }
+};
+
+class ClearBoardBonus final : public BonusImpl {
 public:
-    virtual ~Bonus() = default;
+    virtual ~ClearBoardBonus() = default;
+    using BonusImpl::BonusImpl;
+
+    virtual const Score changeBoardAndCalculateScore(Coordinates coordinates) const final {
+
+    }
+};
+
+class DeleteGemTypeBonus final : public BonusImpl {
+public:
+    virtual ~DeleteGemTypeBonus() = default;
+    using BonusImpl::BonusImpl;
+
+    virtual const Score changeBoardAndCalculateScore(Coordinates coordinates) const final {
+
+    }
+};
+
+class ClearRowBonus final : public BonusImpl {
+public:
+    virtual ~ClearRowBonus() = default;
+    using BonusImpl::BonusImpl;
+
+    virtual const Score changeBoardAndCalculateScore(Coordinates coordinates) const final {
+
+    }
+};
+
+class ClearColumnBonus final : public BonusImpl {
+public:
+    virtual ~ClearColumnBonus() = default;
+    using BonusImpl::BonusImpl;
+
+    virtual const Score changeBoardAndCalculateScore(Coordinates coordinates) const final {
+
+    }
 };
 
 }

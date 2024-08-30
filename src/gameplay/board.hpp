@@ -1,33 +1,25 @@
 #pragma once
 
-#include <vector>
-
-#include "base_hierarchy.hpp"
-#include "base_status_enum.hpp"
-#include "command.hpp"
-#include "executor.hpp"
-
-#include "bonus.hpp"
-#include "combination.hpp"
-#include "coordinates.hpp"
+#include "../framework/base_hierarchy.hpp"
+#include "../framework/base_status_enum.hpp"
+#include "../toolkit/coordinates.hpp"
 #include "tile.hpp"
 
 namespace Gameplay {
 
-DECLARE_STATUS(BoardCommandStatus,
+class BoardManipulator;
+
+COMMAND_STATUS(BoardCommandStatus,
     NotInitialized, // Board is not initialized
     NotAdjacent,    // Tiles are not adjacent
     EmptyTile       // One of the tiles is empty
 );
 
-using CoordinatesList = std::vector<Coordinates>;
-
-using Any = Utilities::Any;
+using Coordinates = Toolkit::Coordinates;
 
 // Board interface for all users
-class Board {
+class Board : public Framework::Any {
 public:
-
     virtual ~Board() = default;
 
 // Queries
@@ -44,35 +36,15 @@ public:
     //   - two tiles are swapped
     virtual void swapTiles(Coordinates first, Coordinates second) = 0;
 
-    virtual void registerCombination(Combination& combination) = 0;
-
     virtual void searchForFirstCombination() = 0;
 
     virtual void searchForAllCombinations() = 0;
 
-    virtual void applyBonus(Bonus& bonus) = 0;
+    virtual void applyBonus(const BoardManipulator& bonus, const Coordinates& coordinates) = 0;
 
 // Command status queries
 
     virtual BoardCommandStatus getSwapTilesStatus() = 0;
 };
 
-class BoardImpl : public Board, public Utilities::Executor<BoardImpl> {
-public:
-    virtual ~BoardImpl() = default;
-
-    enum class CommandType {
-        SWAP,
-        REMOVE
-    };
-
-    using CommandData = std::vector<Utilities::Command<Board>>;
-
-    virtual void applyBonus(Bonus& bonus) override {
-        bonus.visit(*this);
-    };
-};
-
-static_assert(Utilities::ImplementsCommand<BoardImpl>);
-
-};
+}

@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace Utilities {
+namespace Framework {
 
 class General {
 

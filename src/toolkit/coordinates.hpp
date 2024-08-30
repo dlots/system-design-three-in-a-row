@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Gameplay {
+namespace Toolkit {
 
 class Row {
     
@@ -12,8 +12,8 @@ class Column {
 
 class Coordinates {
 public:
-    virtual Row getRow() = 0;
-    virtual Column getColumn() = 0;
+    virtual Row getRow() {}
+    virtual Column getColumn() {}
 };
 
 }

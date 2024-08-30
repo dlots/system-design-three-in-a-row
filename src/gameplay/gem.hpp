@@ -1,25 +1,32 @@
 #pragma once
 
-#include "stats_and_records/score.hpp"
-#include "stats_and_records/score_visitor.hpp"
+#include "../stats_and_records/score.hpp"
 
 #include "tile.hpp"
 
 namespace Gameplay {
 
-class Gem : public Tile {
+enum class GemType {
+    Red = 0,
+    Green,
+    Blue,
+    Yellow
+};
+
+GENERIC_COMMAND_STATUS(GemStatus);
+
+using Score = StatsAndRecords::Score;
+
+class Gem {
 public:
-    virtual ~Gem() = default;
 
 // Queries
+    bool isSameType(const Gem& other) const;
+    Score addScore(const Score& score) const;
 
-// Commands
-    virtual void acceptScoreVisitor(StatsAndRecords::ScoreVisitor visitor) = 0;
-    virtual void acceptCombinationVisitor() = 0;
-
-// Command status queries
-
-
+private:
+    GemType mType;
+    Score mScoreAward;
 };
 
 }

@@ -1,22 +1,24 @@
 #pragma once
 
+#include <optional>
+
+#include "../toolkit/matrix.hpp"
+#include "gem.hpp"
+
 namespace Gameplay {
 
 class Tile {
 public:
     virtual ~Tile() = default;
 
-// Queries
-    virtual char getSymbol() = 0;
-
 // Commands
 
 // Command status queries
 
+private:
+    std::optional<Gem> mGem;
 };
 
-class EmptyTile : public Tile {
-
-};
+using TileMatrix = Toolkit::Matrix<Tile>;
 
 }

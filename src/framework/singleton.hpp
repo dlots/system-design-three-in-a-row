@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Utilities {
+namespace Framework {
 
 template <class T>
 class Singleton {
@@ -11,4 +11,4 @@ public:
     }
 };
 
-};
+}
